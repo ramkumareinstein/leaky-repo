@@ -17,8 +17,11 @@ jobs:
           path: talisman_report/talisman_reports/data
           destination: talisman_report
       - run:
+            name: "Install NPX"
+            command: sudo npm i -g npx || echo "installed"
+      - run:
             name: "Notify Artifact in Pull Request"
-            command: sudo npm i -g npx || npx moxci  talisman_report/talisman_reports/data/talisman_report
+            command: npx moxci  talisman_report/talisman_reports/data/talisman_report || echo "done npx"
 workflows:
   talisman-workflow:
     jobs:
