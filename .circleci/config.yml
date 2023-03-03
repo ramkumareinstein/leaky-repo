@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   talisman:
     docker:
-      - image: rameinstein/talisman
+      - image: rameinstein/talisman:talisman
     resource_class: small
     environment:
       TALISMAN_HOME: /root/.talisman/bin
