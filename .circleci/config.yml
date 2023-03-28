@@ -1,23 +1,46 @@
-version: 2.1
-
+version: '2.1'
+orbs:
+  slack: circleci/slack@4.1
 jobs:
-  talisman:
+  deploy:
     docker:
-      - image: rameinstein/talisman:talisman
-    resource_class: small
-    environment:
-      TALISMAN_HOME: /root/.talisman/bin
-      TALISMAN_INTERACTIVE: false
+      - image: 'cimg/base:stable'
     steps:
-      - checkout
-      - run:
-          name: Check Talisman
-          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here
-      - store_artifacts:
-          path: talisman_report/talisman_reports/data
-          destination: talisman_report
+      - run: echo "deploy my app"
+      - slack/notify:
+          event: fail
+          mentions: '@EngineeringTeam'
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
+  test:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - run: echo "test my app"
 workflows:
-     main:
-        jobs:  
-          - talisman 
-      
+  test-and-deploy:
+    jobs:
+      - test
+      - slack/on-hold:
+          context: slack_secrets
+          filters:
+            tags:
+              only: /^v.*/
+          requires:
+            - test
+      - pause_workflow:
+          filters:
+            tags:
+              only: /^v.*/
+          requires:
+            - test
+            - slack/on-hold
+          type: approval
+      - deploy:
+          filters:
+            tags:
+              only: /^v.*/
+          requires:
+            - pause_workflow
