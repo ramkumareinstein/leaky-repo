@@ -23,8 +23,6 @@ jobs:
               name: Get artifacts
               when: always
               command: |
-                # generate a heredoc in BASH_ENV
-                # the '\<<' is a CircleCI escape
                 echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
                 echo "$CIRCLE_WORKING_DIRECTORY/talisman_report/talisman_reports/data/report.json" >> $BASH_ENV
                 echo "EOF_ARTIFACTS" >> $BASH_ENV
