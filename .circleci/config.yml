@@ -27,7 +27,17 @@ jobs:
                           "text": "Current Job: $CIRCLE_JOB"
                       }
                     },
-                    {
+                      {
+                        "type": "section",
+                        "fields": [
+                          {
+                            "type": "plain_text",
+                            "text": "Talisman Scan completed",
+                            "emoji": true
+                          }
+                        ]
+                      },
+                      {
                         "type": "actions",
                         "elements": [
                           {
@@ -38,16 +48,6 @@ jobs:
                               "text": "View Job"
                             },
                             "url": "${CIRCLE_BUILD_URL}"
-                          }
-                        ]
-                      }
-                      {
-                        "type": "section",
-                        "fields": [
-                          {
-                            "type": "plain_text",
-                            "text": "Talisman Scan completed",
-                            "emoji": true
                           }
                         ]
                       }
