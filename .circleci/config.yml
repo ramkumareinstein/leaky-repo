@@ -48,6 +48,15 @@ jobs:
                               "text": "View Job"
                             },
                             "url": "${CIRCLE_BUILD_URL}"
+                          },
+                          {
+                            "type": "button",
+                            "action_id": "success_tagged_deploy_views",
+                            "text": {
+                              "type": "plain_text",
+                              "text": "View Artifact"
+                            },
+                            "url": "${STORED_ARTIFACTS}/talisman_report/talisman_reports/data/report.json"
                           }
                           ]
                       }
