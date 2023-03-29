@@ -2,23 +2,6 @@ version: '2.1'
 orbs:
   slack: circleci/slack@4.1
 jobs:
-  deploy:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - run: echo "deploy my app"
-      - slack/notify:
-          event: fail
-          mentions: '@EngineeringTeam'
-          template: basic_fail_1
-      - slack/notify:
-          event: pass
-          template: success_tagged_deploy_1
-  test:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - run: echo "test my app"
   talisman:
     docker:
       - image: rameinstein/talisman:talisman
@@ -42,7 +25,7 @@ jobs:
                         "fields": [
                           {
                             "type": "plain_text",
-                            "text": "*This is a text notification*",
+                            "text": "Talisman Scan completed",
                             "emoji": true
                           }
                         ]
@@ -54,28 +37,6 @@ jobs:
           path: talisman_report/talisman_reports/data
           destination: talisman_report
 workflows:
-  test-and-deploy:
+  send-notification:
     jobs:
-      - test
-      - slack/on-hold:
-          context: slack_secrets
-          filters:
-            tags:
-              only: /^v.*/
-          requires:
-            - test
-      - pause_workflow:
-          filters:
-            tags:
-              only: /^v.*/
-          requires:
-            - test
-            - slack/on-hold
-          type: approval
-      - deploy:
-          filters:
-            tags:
-              only: /^v.*/
-          requires:
-            - pause_workflow
       - talisman
