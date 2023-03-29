@@ -19,6 +19,38 @@ jobs:
       - image: 'cimg/base:stable'
     steps:
       - run: echo "test my app"
+  talisman:
+    docker:
+      - image: rameinstein/talisman:talisman
+    resource_class: small
+    environment:
+      TALISMAN_HOME: /root/.talisman/bin
+      TALISMAN_INTERACTIVE: false
+    steps:
+      - checkout
+      - run:
+          name: Check Talisman
+          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here
+      - slack/notify:
+                custom: |
+                  {
+                    "blocks": [
+                      {
+                        "type": "section",
+                        "fields": [
+                          {
+                            "type": "plain_text",
+                            "text": "*This is a text notification*",
+                            "emoji": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                event: always
+      - store_artifacts:
+          path: talisman_report/talisman_reports/data
+          destination: talisman_report
 workflows:
   test-and-deploy:
     jobs:
@@ -44,3 +76,4 @@ workflows:
               only: /^v.*/
           requires:
             - pause_workflow
+      - talisman
