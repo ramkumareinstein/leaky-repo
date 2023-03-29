@@ -11,7 +11,7 @@ jobs:
     environment:
       TALISMAN_HOME: /root/.talisman/bin
       TALISMAN_INTERACTIVE: false
-      CIRCLE_API_TOKEN : 90c8f382311acd398c15b73b9e3d881031417316
+      CIRCLE_API_TOKEN : "90c8f382311acd398c15b73b9e3d881031417316"
     steps:
       - checkout
       - run:
