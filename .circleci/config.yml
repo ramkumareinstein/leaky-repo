@@ -27,6 +27,20 @@ jobs:
                           "text": "Current Job: $CIRCLE_JOB"
                       }
                     },
+                    {
+                        "type": "actions",
+                        "elements": [
+                          {
+                            "type": "button",
+                            "action_id": "success_tagged_deploy_view",
+                            "text": {
+                              "type": "plain_text",
+                              "text": "View Job"
+                            },
+                            "url": "${CIRCLE_BUILD_URL}"
+                          }
+                        ]
+                      }
                       {
                         "type": "section",
                         "fields": [
