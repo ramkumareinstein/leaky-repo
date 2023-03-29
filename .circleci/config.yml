@@ -15,10 +15,7 @@ jobs:
       - checkout
       - run:
           name: Check Talisman
-          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here  
-      - store_artifacts:
-          path: talisman_report/talisman_reports/data
-          destination: talisman_report  
+          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here   
       - slack/notify:
                 custom: |
                   {
@@ -59,14 +56,16 @@ jobs:
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "$CIRCLE_WORKING_DIRECTORY/talisman_report/talisman_reports/data/report.json"
+                            "url": "{$CIRCLE_WORKING_DIRECTORY}/talisman_report/talisman_reports/data/report.json"
                           }
                         ]
                       }
                     ]
                   }
                 event: always
-      
+      - store_artifacts:
+          path: talisman_report/talisman_reports/data
+          destination: talisman_report     
 workflows:
   send-notification:
     jobs:
