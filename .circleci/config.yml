@@ -37,7 +37,14 @@ jobs:
                          "type": "section",
                           "text": {
                           "type": "mrkdwn",
-                          "text": "Current Job and Artifact: $CIRCLE_JOB - $STORED_ARTIFACTS "
+                          "text": "Current Job : $CIRCLE_JOB"
+                      }
+                    },
+                    {
+                         "type": "section",
+                          "text": {
+                          "type": "mrkdwn",
+                          "text": "Artifact : $STORED_ARTIFACTS"
                       }
                     },
                       {
@@ -45,7 +52,7 @@ jobs:
                         "fields": [
                           {
                             "type": "plain_text",
-                            "text": "Talisman Scan completed",
+                            "text": "Talisman Scan completed ",
                             "emoji": true
                           }
                         ]
