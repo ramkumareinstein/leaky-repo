@@ -15,12 +15,15 @@ jobs:
       - checkout
       - run:
           name: Check Talisman
-          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here    
+          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here  
+      - store_artifacts:
+          path: talisman_report/talisman_reports/data
+          destination: talisman_report  
       - run:
               name: Get artifacts
               when: always
               command: |
-                artifacts=$(curl -X GET "https://circleci.com/api/v2/project/(vcs)/(org)/(project)/$CIRCLE_BUILD_NUM/artifacts" \
+                artifacts=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
                 -H "Accept: application/json" \
                 -u "$CIRCLE_API_TOKEN:")
                 # generate a heredoc in BASH_ENV
@@ -76,9 +79,7 @@ jobs:
                     ]
                   }
                 event: always
-      - store_artifacts:
-          path: talisman_report/talisman_reports/data
-          destination: talisman_report
+      
 workflows:
   send-notification:
     jobs:
