@@ -11,11 +11,24 @@ jobs:
     environment:
       TALISMAN_HOME: /root/.talisman/bin
       TALISMAN_INTERACTIVE: false
+      CIRCLE_API_TOKEN : 90c8f382311acd398c15b73b9e3d881031417316
     steps:
       - checkout
       - run:
           name: Check Talisman
-          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here
+          command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here    
+      - run:
+              name: Get artifacts
+              when: always
+              command: |
+                artifacts=$(curl -X GET "https://circleci.com/api/v2/project/(vcs)/(org)/(project)/$CIRCLE_BUILD_NUM/artifacts" \
+                -H "Accept: application/json" \
+                -u "$CIRCLE_API_TOKEN:")
+                # generate a heredoc in BASH_ENV
+                # the '\<<' is a CircleCI escape
+                echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
+                echo "$artifacts" >> $BASH_ENV
+                echo "EOF_ARTIFACTS" >> $BASH_ENV
       - slack/notify:
                 custom: |
                   {
