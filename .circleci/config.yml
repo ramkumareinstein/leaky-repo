@@ -37,7 +37,7 @@ jobs:
                          "type": "section",
                           "text": {
                           "type": "mrkdwn",
-                          "text": "Current Job: $CIRCLE_JOB"
+                          "text": "Current Job and Artifact: $CIRCLE_JOB - $STORED_ARTIFACTS "
                       }
                     },
                       {
