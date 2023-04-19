@@ -37,42 +37,50 @@ jobs:
             
       - slack/notify:               
                 custom: |
-                    {
-                     	"blocks": 
-                      [
+                  {
+                    "blocks": [
+                      {
+                         "type": "section",
+                          "text": {
+                          "type": "mrkdwn",
+                          "text": "Current Job : $CIRCLE_JOB"
+                      }
+                    },
+                      {
+                        "type": "section",
+                        "fields": [
                           {
-                        			"type": "header",
-                        			"text": {
-                        				"type": "plain_text",
-                        				"text": "Job Succeeded. :white_check_mark:",
-                        				"emoji": true
-                        			}
-                        		},
-                        		{
-                        			"type": "section",
-                        			"fields": [
-                        				{
-                        					"type": "mrkdwn",
-                        					"text": "*Job*: ${CIRCLE_JOB}"
-                        				}
-                        			]
-                        		},
-                       {
+                            "type": "plain_text",
+                            "text": "Talisman Scan completed ",
+                            "emoji": true
+                          }
+                        ]
+                      },
+                      {
                         "type": "actions",
-                        			"elements": [
-                        				{
-                        					"type": "button",
-                        					"action_id": "basic_success_view",
-                        					"text": {
-                        						"type": "plain_text",
-                        						"text": "View Artifact"
-                        					},
-                        					"url": "${CIRCLE_BUILD_URL}"
-                        				}
-                        	   ]
-                        }
-                      ] 
-                    }
+                        "elements": [
+                          {
+                            "type": "button",
+                            "action_id": "success_tagged_deploy_view",
+                            "text": {
+                              "type": "plain_text",
+                              "text": "View Job"
+                            },
+                            "url": "${CIRCLE_BUILD_URL}"
+                          }
+                           {
+                            "type": "button",
+                            "action_id": "success_tagged_deploy_view",
+                            "text": {
+                              "type": "plain_text",
+                              "text": "View Artifact"
+                            },
+                            "url": "${ARTIFACT_URL}"
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 event: always
            
 workflows:
