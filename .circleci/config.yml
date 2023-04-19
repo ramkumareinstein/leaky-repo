@@ -29,13 +29,12 @@ jobs:
             -u "$CIRCLE_API_TOKEN:" | jq ".items[].url")
             echo $ARTIFACT_URL
             
-      - slack/notify:
-                
+      - slack/notify:               
                 custom: |
                     {
                      	"blocks": 
                       [
-                            {
+                          {
                         			"type": "header",
                         			"text": {
                         				"type": "plain_text",
@@ -62,7 +61,7 @@ jobs:
                         						"type": "plain_text",
                         						"text": "View Artifact"
                         					},
-                        					"url": "${ARTIFACT_URL}"
+                        					"url": "${CIRCLE_BUILD_URL}"
                         				}
                         			]
                         }
