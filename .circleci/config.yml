@@ -30,7 +30,28 @@ jobs:
             echo $ARTIFACT_URL
             
       - slack/notify:
+                
                 custom: |
+                    {
+                     	"blocks": 
+                      [
+                            {
+                        			"type": "header",
+                        			"text": {
+                        				"type": "plain_text",
+                        				"text": "Job Succeeded. :white_check_mark:",
+                        				"emoji": true
+                        			}
+                        		},
+                        		{
+                        			"type": "section",
+                        			"fields": [
+                        				{
+                        					"type": "mrkdwn",
+                        					"text": "*Job*: ${CIRCLE_JOB}"
+                        				}
+                        			]
+                        		},
                        {
                         "type": "actions",
                         			"elements": [
@@ -45,6 +66,8 @@ jobs:
                         				}
                         			]
                         }
+                      ] 
+                    }
                 event: always
            
 workflows:
