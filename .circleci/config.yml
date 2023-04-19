@@ -24,17 +24,16 @@ jobs:
       - run:
           name: Get artifacts
           command: |
-            artifacts=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
+            URL_API_TEST_RESULTS=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
             -H "Accept: application/json" \
             -u "$CIRCLE_API_TOKEN:") | jq ".items[].url"
-            # generate a heredoc in BASH_ENV
-            # the '\<<' is a CircleCI escape
-            echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
-            echo "export $artifacts" >> $BASH_ENV
-            echo "EOF_ARTIFACTS" >> $BASH_ENV
-          environment:
-            ARTIFACTS_URL=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" -H "Accept: application/json" -u "$CIRCLE_API_TOKEN:") | jq ".items[].url" 
-             
+            if [ -z "$URL_API_TEST_RESULTS" ]
+            then
+            echo "Unable to get URL_API_TEST_RESULTS variable, exiting with code 1";
+            exit 1;
+            else
+              echo $(eval "echo API Tests are located at: $URL_API_TEST_RESULTS");
+            fi
       - slack/notify:
                 custom: |
                   {
@@ -61,13 +60,22 @@ jobs:
                         "elements": [
                           {
                             "type": "button",
-                            "action_id": "success_tagged_deploy_viewss",
+                            "action_id": "success_tagged_deploy_view",
                             "text": {
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "${ARTIFACTS_URL}"
+                            "url": "${CIRCLE_BUILD_URL}"
+                          },
+                          {
+                              "type": "button",
+                              "text": {
+                                            "type": "plain_text",
+                                            "text": "View API Test Results"
+                                          },
+                              "url": "${URL_API_TEST_RESULTS}"
                           }
+                      }
                           ]
                       }
                     ]
