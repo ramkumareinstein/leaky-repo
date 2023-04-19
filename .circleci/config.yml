@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Get artifacts
           command: |
-            URL_API_TEST_RESULTS=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
+            export URL_API_TEST_RESULTS=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
             -H "Accept: application/json" \
             -u "$CIRCLE_API_TOKEN:") | jq ".items[].url"
             if [ -z "$URL_API_TEST_RESULTS" ]
