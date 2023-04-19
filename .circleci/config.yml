@@ -27,13 +27,8 @@ jobs:
             export URL_API_TEST_RESULTS=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
             -H "Accept: application/json" \
             -u "$CIRCLE_API_TOKEN:") | jq ".items[].url"
-            if [ -z "$URL_API_TEST_RESULTS" ]
-            then
-            echo "Unable to get URL_API_TEST_RESULTS variable, exiting with code 1";
-            exit 1;
-            else
-              echo $(eval "echo API Tests are located at: $URL_API_TEST_RESULTS");
-            fi
+            echo $(eval "echo API Tests are located at: $URL_API_TEST_RESULTS");
+            
       - slack/notify:
                 custom: |
                   {
@@ -59,15 +54,6 @@ jobs:
                         "type": "actions",
                         "elements": [
                           {
-                            "type": "button",
-                            "action_id": "success_tagged_deploy_view",
-                            "text": {
-                              "type": "plain_text",
-                              "text": "View Artifact"
-                            },
-                            "url": "${CIRCLE_BUILD_URL}"
-                          },
-                          {
                               "type": "button",
                               "text": {
                                             "type": "plain_text",
@@ -75,7 +61,6 @@ jobs:
                                           },
                               "url": "${URL_API_TEST_RESULTS}"
                           }
-                      }
                           ]
                       }
                     ]
