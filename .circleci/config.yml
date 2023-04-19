@@ -59,11 +59,11 @@ jobs:
                         "elements": [
                           {
                             "type": "button",
+                            "action_id": "success_tagged_deploy_view",
                             "text": {
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "value": "Artifact URL"
                             "url": "${CIRCLE_BUILD_URL}"
                           }
                           ]
