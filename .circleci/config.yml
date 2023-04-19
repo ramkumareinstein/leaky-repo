@@ -60,7 +60,7 @@ jobs:
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "${ARTIFACTS_URL}"
+                            "url": "$ARTIFACTS_URL"
                           }
                           ]
                       }
