@@ -71,14 +71,14 @@ jobs:
                         				},
                                 	{
                         					"type": "button",
-                        					"action_id": "basic_success_view",
+                        					"action_id": "basic_success_view2",
                         					"text": {
                         						"type": "plain_text",
                         						"text": "View Job"
                         					},
                         					"url": "${STORED_ARTIFACTS}"
                         				}
-                        			]
+                        	   ]
                         }
                       ] 
                     }
