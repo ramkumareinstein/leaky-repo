@@ -64,7 +64,7 @@ jobs:
                               "text": "View Artifact"
                             },
                             "value": "Artifact URL"
-                            "url": "${ARTIFACTS_URL}"
+                            "url": "${CIRCLE_BUILD_URL}"
                           }
                           ]
                       }
