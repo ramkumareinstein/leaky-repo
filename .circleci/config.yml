@@ -63,7 +63,7 @@ jobs:
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "$ARTIFACT_URL"
+                            "url": "${CIRCLE_BUILD_URL}"
                           }
                         ]
                       }
