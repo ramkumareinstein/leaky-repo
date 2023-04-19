@@ -41,19 +41,6 @@ jobs:
                       }
                     },
                       {
-                        "type": "section",
-                        "fields": [
-                          {
-                            "type": "plain_text",
-                            "text": "Talisman Scan completed ",
-                            "emoji": true
-                          }
-                        ]
-                      },
-                      {
-                        "type": "actions",
-                        "elements": [
-                          {
                               "type": "button",
                               "text": {
                                             "type": "plain_text",
@@ -61,8 +48,6 @@ jobs:
                                           },
                               "url": "{$ARTIFACT_URL}"
                           }
-                          ]
-                      }
                     ]
                   }
                 event: always
