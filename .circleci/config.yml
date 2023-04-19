@@ -33,14 +33,7 @@ jobs:
                 custom: |
                   {
                     "blocks": [
-                      {
-                         "type": "section",
-                          "text": {
-                          "type": "mrkdwn",
-                          "text": "Current Job : $CIRCLE_JOB"
-                      }
-                    },
-                      {
+                              {
                               "type": "button",
                               "text": {
                                             "type": "plain_text",
