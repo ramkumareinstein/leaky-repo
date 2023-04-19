@@ -54,7 +54,7 @@ jobs:
                               "text": "View Job"
                             },
                             "url": "${CIRCLE_BUILD_URL}"
-                          }
+                          },
                            {
                             "type": "button",
                             "action_id": "success_tagged_deploy_view",
