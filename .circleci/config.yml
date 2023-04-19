@@ -28,12 +28,6 @@ jobs:
             -H "Accept: application/json" \
             -u "$CIRCLE_API_TOKEN:" | jq ".items[].url")
             echo $ARTIFACT_URL
-            # generate a heredoc in BASH_ENV
-            # the '\<<' is a CircleCI escape
-            echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
-            echo "export $ARTIFACT_URL" >> $BASH_ENV
-            echo "EOF_ARTIFACTS" >> $BASH_ENV
-            echo $STORED_ARTIFACTS
             
       - slack/notify:               
                 custom: |
