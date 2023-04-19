@@ -47,7 +47,7 @@ jobs:
                         			"fields": [
                         				{
                         					"type": "mrkdwn",
-                        					"text": "*Job*: ${CIRCLE_JOB}"
+                        					"text": "*Job*: ${ARTIFACT_URL}"
                         				}
                         			]
                         		},
