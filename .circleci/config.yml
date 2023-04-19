@@ -1,6 +1,7 @@
 version: '2.1'
 orbs:
   slack: circleci/slack@4.1
+  jq: circleci/jq@2.2.0
 jobs:
   talisman:
     docker:
@@ -13,6 +14,7 @@ jobs:
       TALISMAN_INTERACTIVE: false
     steps:
       - checkout
+      - jq/install
       - run:
           name: Check Talisman
           command: $TALISMAN_HOME/talisman_linux_amd64 --scan || echo "done" # I've added --ignoreHistory to the end here 
