@@ -21,18 +21,6 @@ jobs:
       - store_artifacts:
           path: talisman_report/talisman_reports/data
           destination: talisman_report
-      - run:
-          name: Get artifacts
-          when: on_success
-          command: |
-            artifacts=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
-            -H "Accept: application/json" \
-            -u "$CIRCLE_API_TOKEN:") | jq ".items[].url"
-            # generate a heredoc in BASH_ENV
-            # the '\<<' is a CircleCI escape
-            echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
-            echo "$artifacts" >> $BASH_ENV
-            echo "EOF_ARTIFACTS" >> $BASH_ENV  
       - slack/notify:
                 custom: |
                   {
@@ -64,7 +52,7 @@ jobs:
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "${CIRCLE_JOB}"
+                            "url": "${CIRCLE_BUILD_URL}"
                           }
                           ]
                       }
