@@ -31,18 +31,20 @@ jobs:
             
       - slack/notify:
                 custom: |
-                  {
-                    "blocks": [
-                              {
-                              "type": "button",
-                              "text": {
-                                            "type": "plain_text",
-                                            "text": "View API Test Results"
-                                          },
-                              "url": "{$ARTIFACT_URL}"
-                          }
-                    ]
-                  }
+                       {
+                        "type": "actions",
+                        			"elements": [
+                        				{
+                        					"type": "button",
+                        					"action_id": "basic_success_view",
+                        					"text": {
+                        						"type": "plain_text",
+                        						"text": "View Artifact"
+                        					},
+                        					"url": "${ARTIFACT_URL}"
+                        				}
+                        			]
+                        }
                 event: always
            
 workflows:
