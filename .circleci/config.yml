@@ -34,13 +34,6 @@ jobs:
                   {
                     "blocks": [
                       {
-                         "type": "section",
-                          "text": {
-                          "type": "mrkdwn",
-                          "text": "Current Job : $CIRCLE_JOB"
-                      }
-                    },
-                      {
                         "type": "section",
                         "fields": [
                           {
