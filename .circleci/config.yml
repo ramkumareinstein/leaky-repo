@@ -57,7 +57,7 @@ jobs:
                           },
                            {
                             "type": "button",
-                            "action_id": "success_tagged_deploy_view",
+                            "action_id": "success_tagged_deploy_views",
                             "text": {
                               "type": "plain_text",
                               "text": "View Artifact"
