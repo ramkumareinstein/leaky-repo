@@ -64,7 +64,7 @@ jobs:
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "${STORED_ARTIFACTS}"
+                            "url": "${CIRCLE_JOB}"
                           }
                           ]
                       }
