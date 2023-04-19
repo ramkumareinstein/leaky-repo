@@ -68,15 +68,6 @@ jobs:
                         						"text": "View Artifact"
                         					},
                         					"url": "${CIRCLE_BUILD_URL}"
-                        				},
-                                	{
-                        					"type": "button",
-                        					"action_id": "basic_success_view2",
-                        					"text": {
-                        						"type": "plain_text",
-                        						"text": "View Job"
-                        					},
-                        					"url": "${STORED_ARTIFACTS}"
                         				}
                         	   ]
                         }
