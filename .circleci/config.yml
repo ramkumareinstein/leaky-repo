@@ -33,6 +33,7 @@ jobs:
             echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
             echo "export $ARTIFACT_URL" >> $BASH_ENV
             echo "EOF_ARTIFACTS" >> $BASH_ENV
+            echo $STORED_ARTIFACTS
             
       - slack/notify:               
                 custom: |
@@ -66,7 +67,16 @@ jobs:
                         						"type": "plain_text",
                         						"text": "View Artifact"
                         					},
-                        					"url": "${ARTIFACT_URL}"
+                        					"url": "${CIRCLE_BUILD_URL}"
+                        				},
+                                	{
+                        					"type": "button",
+                        					"action_id": "basic_success_view",
+                        					"text": {
+                        						"type": "plain_text",
+                        						"text": "View Job"
+                        					},
+                        					"url": "${STORED_ARTIFACTS}"
                         				}
                         			]
                         }
