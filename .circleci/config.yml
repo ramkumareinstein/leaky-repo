@@ -25,10 +25,15 @@ jobs:
           name: Get artifacts
           when: on_success
           command: |
-            export ARTIFACT_URL=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
+            artifacts=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
             -H "Accept: application/json" \
             -u "$CIRCLE_API_TOKEN:" | jq ".items[].url")
             echo $ARTIFACT_URL
+             # generate a heredoc in BASH_ENV
+             # the '\<<' is a CircleCI escape
+             echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
+             echo "$artifacts" >> $BASH_ENV
+             echo "EOF_ARTIFACTS" >> $BASH_ENV
             
       - slack/notify:               
                 custom: |
@@ -63,7 +68,7 @@ jobs:
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "${CIRCLE_BUILD_URL}"
+                            "url": "${STORED_ARTIFACTS}"
                           }
                         ]
                       }
