@@ -28,7 +28,8 @@ jobs:
           command: | 
             artifacts=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
             -H "Accept: application/json" \
-            -u "$CIRCLE_API_TOKEN:" | jq ".items[].url")       
+            -u "$CIRCLE_API_TOKEN:" | jq ".items[].url")  
+            echo $Artifacts     
       - slack/notify:               
                 custom: |
                   {
@@ -62,7 +63,7 @@ jobs:
                               "type": "plain_text",
                               "text": "View Artifact"
                             },
-                            "url": "$artifacts"      
+                            "url": "$Artifacts"      
                                     
                           }
                         ]
