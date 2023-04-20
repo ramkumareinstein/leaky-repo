@@ -29,7 +29,11 @@ jobs:
             artifacts=$(curl -X GET "https://circleci.com/api/v2/project/github/ramkumareinstein/leaky-repo/$CIRCLE_BUILD_NUM/artifacts" \
             -H "Accept: application/json" \
             -u "$CIRCLE_API_TOKEN:" | jq ".items[].url")  
-            echo $artifacts     
+            echo $artifacts
+            echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
+            echo "$artifacts" >> $BASH_ENV
+            echo "EOF_ARTIFACTS" >> $BASH_ENV
+            source "$BASH_ENV"     
       - slack/notify:               
                 custom: |
                   {
@@ -61,9 +65,9 @@ jobs:
                             "action_id": "success_tagged_deploy_views",
                             "text": {
                               "type": "plain_text",
-                              "text": "View Artifact"
+                              "text": "View Artifact URL"
                             },
-                            "url": "${CIRCLE_BUILD_URL}"      
+                            "url": "${STORED_ARTIFACTS}"      
                                     
                           }
                         ]
