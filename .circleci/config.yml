@@ -33,7 +33,7 @@ jobs:
             echo "read -r -d '' STORED_ARTIFACTS \<< 'EOF_ARTIFACTS'" >> $BASH_ENV
             echo "$artifacts" >> $BASH_ENV
             echo "EOF_ARTIFACTS" >> $BASH_ENV
-            source "$BASH_ENV"     
+            . $BASH_ENV     
       - slack/notify:               
                 custom: |
                   {
