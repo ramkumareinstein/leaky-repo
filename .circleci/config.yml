@@ -8,7 +8,7 @@ jobs:
       - image: rameinstein/talisman:ubuntu-talismancp
         auth:
           username: rameinstein  # can specify string literal values
-          password: LqwBTW@20915
+          password: BCtalismanScan2023
     environment:
       TALISMAN_HOME: /root/.talisman/bin
       TALISMAN_INTERACTIVE: false
