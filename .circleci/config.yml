@@ -5,10 +5,10 @@ orbs:
 jobs:
   talisman:
     docker:
-      - image: rameinstein/talisman:ubuntu-talismancp
-        auth:
-          username: rameinstein  # can specify string literal values
-          password: LqwBTW@20915
+      - image: rameinstein/talisman
+      #  auth:
+       #   username: rameinstein  # can specify string literal values
+        #  password: LqwBTW@20915
     environment:
       TALISMAN_HOME: /root/.talisman/bin
       TALISMAN_INTERACTIVE: false
